@@ -14,7 +14,7 @@ $person[] = new Programmer('Иван', 'Виноградов');
 $person[] = new Manager('Любовь', 'Белова');
 $person[] = new Tester('Иван', 'Токарев');
 echo PHP_EOL;
-$person[0]->setSalary(220000);
+$person[0]->setSalary(14899);
 $person[1]->setSalary(300000);
 $person[2]->setSalary(120000);
 $person[3]->setSalary(90000);

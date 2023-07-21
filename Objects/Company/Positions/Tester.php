@@ -23,9 +23,14 @@ class Tester extends Employee implements ApplicationCreatorInterface
     }
 
     public function setSalary(int $salary) : void {
-        if ($salary > 0) {
-            $this->salary = $salary;
+        if ($salary < 0) {
+            throw new \Exception('ЗП не может быть меньше нуля');
+        } else if ($salary == 0) {
+            throw new \Exception('ЗП не быть нулевая');
+        } else if ($salary < 17930) {
+            throw new \Exception('ЗП не быть меньше чем МРОТ');
         }
+        $this->salary = $salary;
     }
 
     public function getFullname(): void {
