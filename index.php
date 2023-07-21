@@ -14,7 +14,7 @@ $person[] = new Programmer('Иван', 'Виноградов');
 $person[] = new Manager('Любовь', 'Белова');
 $person[] = new Tester('Иван', 'Токарев');
 echo PHP_EOL;
-$person[0]->setSalary(14899);
+$person[0]->setSalary(250000);
 $person[1]->setSalary(300000);
 $person[2]->setSalary(120000);
 $person[3]->setSalary(90000);
@@ -27,16 +27,31 @@ foreach ($person as $element) {
 
     // Выводим должность сотрудника
     echo ', позиция ';
-    echo getPosition($element);
-    
+    try {
+        echo getPosition($element);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    die();
+    }
+
     // Выводим ЗП сотрудника
     echo ', зарпалата ';
-    echo $element->getSalary();
+    try {
+        echo $element->getSalary();
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    die();
+    }
     echo ' рублей, ';
 
     // Выводим все подключенные к сотруднику интерфейсы
     echo 'сотрудник ';
-    echo getInterfaces($element);
+    try {
+        echo getInterfaces($element);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    die();
+    }
 }
 
 // Выводим общее количество сотрудников
@@ -65,8 +80,10 @@ function getPosition(object $element): void {
         echo 'тестер';
     } else if ($element instanceof Manager) {
         echo 'менеджер';
-    } else {
+    } else if ($element instanceof Director) {
         echo 'директор';
+    } else {
+        throw new \Exception('Непредвиденная ошибка в поиске классов у сотрудника!');
     }
 }
 
@@ -95,7 +112,7 @@ function getInterfaces(object $element): void {
                 $element->doWebinar();
                 break;
             default:
-                echo 'Ошибка в поиске интерфейсов';
+                throw new \Exception('Ошибка в поиске интерфейсов');
         }
         
         if ($i == count($implements) - 1) {
